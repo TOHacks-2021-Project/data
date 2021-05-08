@@ -30,11 +30,10 @@ def get_recipes(
     response = requests.get(url)
     content = json.loads(response.content)
     
-    #recipe_names = [recipe['recipe']['label'] for recipe in content['hits']]
     recipes = []
     for recipe in content['hits']:
         x = recipe['recipe']
-
+        
         y = {
             "name": x['label'],
             "thumbnail": x['image'],
@@ -42,10 +41,14 @@ def get_recipes(
             "diets_label": x['dietLabels'],
             "health_labels": x['healthLabels'],
             "cautions": x['cautions'],
-            "calories": x['calories'],
-            "meal_type": x['mealType'],
-            "dish_type": x['dishType']
+            "calories": x['calories']
         }
+
+        if meal_type:
+            y['meal_type'] = x['mealType']
+        
+        if cuisine_type:
+            y['dish_type'] = x['dishType']
 
         ingredients = []
         for ingr in x['ingredients']:

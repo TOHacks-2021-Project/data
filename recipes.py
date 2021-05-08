@@ -59,4 +59,4 @@ def get_recipes(
 
         recipes.append(y)
 
-    return json.dumps(recipes, indent=4)
+    return recipes
